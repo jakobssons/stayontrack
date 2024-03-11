@@ -2,7 +2,7 @@
  
 include_once 'config/db_config.php';
  
-echo "<h1>Financial Transactions</h1>";
+echo "<h1>Project Logs</h1>";
 
 // Connect to the database
 $conn = mysqli_connect($servername, $username, $password, $dbname);

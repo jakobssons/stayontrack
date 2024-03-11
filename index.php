@@ -51,12 +51,12 @@ h5 {
 </style>§
 <body>
  
-<h3>Login to Web App</h3>
+<h3>Stay on Track</h3>
  
 <div>
-<form action="transfer.php" method="post">
-    <label for="email">Email: </label>
-    <input type="text" id="email" name="email" placeholder="Email address">
+<form action="chooseproject.php" method="post">
+    <label for="user">User: </label>
+    <input type="text" id="user" name="user" placeholder="Username">
    
     <label for="password">Password: </label>
     <input type="text" id="password" name="password" placeholder="Password">

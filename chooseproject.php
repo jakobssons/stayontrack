@@ -40,21 +40,33 @@ div {
 </style>
 <body>
  
-<h3>Money Transfer Blockchain Web App</h3>
- 
+<h3>Choose your project and give a memo, whats done</h3>
+
 <div>
 <form action="blockchain.php" method="post">
-    <label for="sender">Sender: </label>
-    <input type="text" id="sender" name="sender" placeholder="Sender...">
-   
-    <label for="receiver">Receiver: </label>
-    <input type="text" id="receiver" name="receiver" placeholder="Receiver...">
- 
-    <label for="amount">Amount: </label>
-    <input type="text" id="amount" name="amount" placeholder="Amount...">
+
+    <input type="radio" id="project1" name="FollowWeather" value="project" />
+    <label for="project1">FollowWeather</label>
+
+    <input type="radio" id="project2" name="StayonTrack" value="project" />
+    <label for="project2">Stay on Track</label>
+
+    <input type="radio" id="project3" name="MangaPanelCollection" value="project" />
+    <label for="project3">Manga Panel Collection</label>
+
+    <input type="radio" id="project4" name="SlotMachineOnline" value="project" />
+    <label for="project4">Slot Machine Online</label>
+
+    <label for="memo">Memo: </label>
+    <input type="text" id="memo" name="memo" placeholder="Give a short memo...">
 
     <input type="submit" value="Submit">
   </form>
+</div>
+
+
+<div>
+
 </div>
  
 </body>
