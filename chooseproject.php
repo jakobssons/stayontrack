@@ -40,25 +40,21 @@ div {
 </style>
 <body>
  
-<h3>Choose your project and give a memo, whats done</h3>
+<h3>Choose your project and give a log, whats done</h3>
 
 <div>
 <form action="blockchain.php" method="post">
 
-    <input type="radio" id="project1" name="FollowWeather" value="project" />
-    <label for="project1">FollowWeather</label>
+    <label for="Projects">Choose a project:</label>
+    <select name="Projects" id="Projects">
+      <option value="project1">FollowWeather</option>
+      <option value="project2">Stay on Track</option>
+      <option value="project3">Manga Panel Collection</option>
+      <option value="project4">Slot Machine Online</option>
+    </select>
 
-    <input type="radio" id="project2" name="StayonTrack" value="project" />
-    <label for="project2">Stay on Track</label>
-
-    <input type="radio" id="project3" name="MangaPanelCollection" value="project" />
-    <label for="project3">Manga Panel Collection</label>
-
-    <input type="radio" id="project4" name="SlotMachineOnline" value="project" />
-    <label for="project4">Slot Machine Online</label>
-
-    <label for="memo">Memo: </label>
-    <input type="text" id="memo" name="memo" placeholder="Give a short memo...">
+    <label for="log">Log: </label>
+    <input type="text" id="log" name="log" placeholder="Give a short log...">
 
     <input type="submit" value="Submit">
   </form>
