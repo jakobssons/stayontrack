@@ -31,6 +31,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #FF007ACC;
 }
+
  
 div {
   border-radius: 5px;
@@ -45,12 +46,12 @@ div {
 <div>
 <form action="blockchain.php" method="post">
 
-    <label for="Projects">Choose a project:</label>
-    <select name="Projects" id="Projects">
-      <option value="project1">FollowWeather</option>
-      <option value="project2">Stay on Track</option>
-      <option value="project3">Manga Panel Collection</option>
-      <option value="project4">Slot Machine Online</option>
+    <label for="project">Choose a project:</label>
+    <select name="project" id="project">
+      <option value="FollowWeather">FollowWeather</option>
+      <option value="Stay on Track">Stay on Track</option>
+      <option value="Manga Panel Collection">Manga Panel Collection</option>
+      <option value="Slot Machine Online">Slot Machine Online</option>
     </select>
 
     <label for="log">Log: </label>
