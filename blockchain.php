@@ -1,8 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>StayOnTrack</title>
+</head>
+<body>
+<div>
+<h1>Project Logs</h1>
+<h1>Data inserted successfully!</h1>
+</div>
 <?php
- 
+
 include_once 'config/db_config.php';
- 
-echo "<h1>Project Logs</h1>";
 
 // Connect to the database
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -44,10 +52,6 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
- 
-echo "<h1>Data inserted successfully!</h1>" . "<br>";
-
-echo "<h4><a href=\"index.php\">Kirjaudu ulos ja palaa aloitussivulle</a></h4>";
 
 // Retrieve and display the blockchain from the database
 $sql2 = "SELECT timestamp, user, project, log FROM proju_table";
@@ -66,16 +70,18 @@ echo "<style>
         margin-left:260px;
         overflow-x:auto;
         margin: 20px auto;
+        border-color: black;
     }
  
 
     th, td {
         padding: 10px;
-        border: 1,5px solid #ddd;
+        border: 1,75px solid #ddd;
         white-space: nowrap;
         text-align: left;
         max-width: 430px;
         box-sizing: border-box;
+        border-color: black;
     }
  
     td {
@@ -86,6 +92,8 @@ echo "<style>
         background-color: #f2f2f2;
         min-width: 105px;
         box-sizing: border-box;
+        border-color: black;
+        color:#0047AB;
     }
  
     tr:hover {
@@ -103,7 +111,27 @@ echo "<style>
         color:#0047AB;
         font-size: 16px;
     }
-
+    
+    h3{
+        text-align:center;
+        color:#0047AB;
+    }
+    
+    body {
+        background-image: url('taustakuva1.jpg');
+        background-size: cover;
+        background-position: center; 
+      }
+    
+      div {  
+        width: 100%;
+        max-width: 665px;
+        margin: 0 auto;
+        border-radius: 20px;
+        background-color: #f2f2f2;
+        padding: 10px;
+      }
+      
 </style>";
 
 // Display the blockchain data in a table
@@ -126,8 +154,13 @@ while ($row = mysqli_fetch_array($result2)) {
  
 echo "</table>";
 
+
 // Close the database connection
 $conn->close();
  
 ?>
- 
+<div>
+<H3><a href="index.php">Kirjaudu ulos ja palaa aloitussivulle</a></h3>
+</div>
+</body>
+</html>

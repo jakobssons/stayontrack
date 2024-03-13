@@ -1,46 +1,42 @@
 <?php
  
-include_once 'config/db_config.php';
+ include_once 'config/db_config.php';
+ session_start();
  
-session_start();
+ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+     $conn = new mysqli($servername, $user, $upassword, $dbname);
  
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ... (your existing code for database connection)
+     if ($conn->connect_error) {
+         die("Connection failed: " . $conn->connect_error);
+     }
  
-    $conn = new mysqli($servername, $user, $upassword, $dbname);
+     $user = $conn->real_escape_string($_POST['user']);
+     $upassword = $_POST['upassword']; // Plain text password
  
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+     // Modify the SQL query to retrieve user information by username
+     $sql = "SELECT user, upassword FROM users_table WHERE user = ?";
+     $stmt = $conn->prepare($sql);
+     $stmt->bind_param("s", $user);
+     $stmt->execute();
+     $result = $stmt->get_result();
  
-    $user = $conn->real_escape_string($_POST['email']);
-    $upassword = $_POST['upassword']; // Plain text password
+     if ($result->num_rows > 0) {
+         $row = $result->fetch_assoc();
  
-    // Modify the SQL query to retrieve user information
-    $sql = "SELECT user, upassword FROM users_table WHERE email = '$user'";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $user);
-    $stmt->execute();
-    $result = $stmt->get_result();
+         // Verify the password using password_verify
+         if (password_verify($upassword, $row['upassword'])) {
+             // Store user information in session
+             $_SESSION['user'] = $row['user'];
  
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
- 
-        // Verify the password using password_verify
-        if (password_verify($upassword, $row['upassword'])) {
-            // Store user information in session
-            $_SESSION['user'] = $row['user'];
- 
-            // Redirect to Money Transfer blockchain web app
-            header('Location: index.php');
-            exit;
-        } else {
-            $access_denied_error = "Access denied. Incorrect password.";
-        }
-    } else {
-        $access_denied_error = "Access denied. User not found.";
-    }
+             // Redirect to the index page after successful login
+             header('Location: index.php');
+             exit;
+         } else {
+             $access_denied_error = "Access denied. Incorrect password.";
+         }
+     } else {
+         $access_denied_error = "Access denied. User not found.";
+     }
  
     // Close the database connection
     $stmt->close();
@@ -50,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+  <head>
+  <title>StayOnTrack</title>
+  </head>
 <style>
 input[type=text], select {
   width: 100%;
@@ -89,11 +88,14 @@ input[type=submit] {
 }
  
 input[type=submit]:hover {
-  background-color: #FF007ACC;
+  background-color: #000080;
 }
  
-div {
-  border-radius: 5px;
+.login {
+  width: 50%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 20px;
   background-color: #f2f2f2;
   padding: 20px;
 }
@@ -103,17 +105,40 @@ H4 {
   color: #0047AB;
 }
 
+.stay {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  text-align: center;
+  border-radius: 0px;
+  padding-bottom: 25px;
+}
+
+.stay img {
+  margin: auto; /* Center horizontally */
+  display: block; /* Remove any default spacing */
+}
+
 h5 {
   text-align: center;
   color: black;
 }
 
+body {
+  background-image: url('taustakuva1.jpg');
+  background-size: cover;
+  background-position: center; 
+}
+
 </style>
 <body>
  
-<h3>Stay on Track</h3>
+<div id="stay" class="stay">
+  <img src="stay.png" alt="logo" height="265px" width="265px">
+</div>
  
-<div>
+<div id="login" class="login">
+<h3>Login</h3>
 <form action="chooseproject.php" method="post">
     <label for="user">User: </label>
     <input type="text" id="user" name="user" placeholder="Username">
@@ -124,9 +149,9 @@ h5 {
     <input type="submit" value="Login">
   </form>
   <h5>Login or <a href="createacc.php">create new account</a></h5>
+  <h4>Please Login</h4>
 </div>
 
-<h4>Please Login</h4>
 
 </body>
 </html>

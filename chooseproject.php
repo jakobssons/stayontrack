@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>StayOnTrack</title>
+</head>
 <style>
 input[type=text], select {
   width: 100%;
@@ -11,9 +14,9 @@ input[type=text], select {
   box-sizing: border-box;
 }
  
-H3 {
+H4 {
   text-align: center;
-  font-size: 40px;
+  font-size: 25px;
   color: #0047AB;
 }
 
@@ -29,21 +32,47 @@ input[type=submit] {
 }
  
 input[type=submit]:hover {
-  background-color: #FF007ACC;
+  background-color: #000080;
 }
 
- 
-div {
-  border-radius: 5px;
+.stay {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  text-align: center;
+  border-radius: 0px;
+  padding-bottom: 25px;
+}
+
+.stay img {
+  margin: auto; /* Center horizontally */
+  display: block; /* Remove any default spacing */
+}
+
+.choose {
+  width: 50%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 20px;
   background-color: #f2f2f2;
   padding: 20px;
 }
-</style>
-<body>
- 
-<h3>Choose your project and give a log, whats done</h3>
 
-<div>
+body {
+  background-image: url('taustakuva1.jpg');
+  background-size: cover;
+  background-position: center; 
+}
+</style>
+
+<body>
+
+<div id="stay" class="stay">
+  <img src="stay.png" alt="logo" height="265px" width="265px">
+</div>
+
+<div id="choose" class="choose">
+<h4>Choose your project and give a log, whats done</h4>
 <form action="blockchain.php" method="post">
 
     <label for="project">Choose a project:</label>

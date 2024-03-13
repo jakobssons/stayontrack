@@ -1,26 +1,24 @@
 <?php
 include_once 'config/db_config.php';
- 
 session_start();
- 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ... (your existing code for database connection)
     $conn = new mysqli($servername, $user, $upassword, $dbname);
- 
+
     // Check the connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
- 
+
     $user = $conn->real_escape_string($_POST['user']);
-    $upassword = upassword_hash($_POST['upassword'], PASSWORD_DEFAULT); // Hash the password
- 
+    $upassword = password_hash($_POST['upassword'], PASSWORD_DEFAULT); // Hash the password
+
     // Modify the SQL query to insert user information
-    $sql = "INSERT INTO users_table (user, upassword) VALUES ('$user', '$upassword')";
+    $sql = "INSERT INTO users_table (user, password) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $user, $upassword);
+    $stmt->bind_param("ss", $user, $upassword);
     $result = $stmt->execute();
- 
+
     if ($result) {
         // Redirect to index page after successful account creation
         header('Location: index.php');
@@ -28,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Error: " . $stmt->error;
     }
- 
+
     // Close the database connection
     $stmt->close();
     $conn->close();
@@ -37,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+<head>
+  <title>StayOnTrack</title>
+</head>
 <style>
 input[type=text], select {
   width: 100%;
@@ -76,14 +77,32 @@ input[type=submit] {
 }
  
 input[type=submit]:hover {
-  background-color: #FF007ACC;
+  background-color: #000080;
 }
  
-div {
-  border-radius: 5px;
+.acc {
+  width: 50%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 20px;
   background-color: #f2f2f2;
   padding: 20px;
 }
+
+.stay {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  text-align: center;
+  border-radius: 0px;
+  padding-bottom: 25px;
+}
+
+.stay img {
+  margin: auto; /* Center horizontally */
+  display: block; /* Remove any default spacing */
+}
+
 H4 {
   text-align: center;
   color: #0047AB;
@@ -93,12 +112,22 @@ h5 {
   text-align: center;
   color: black;
 }
+
+body {
+  background-image: url('taustakuva1.jpg');
+  background-size: cover;
+  background-position: center; 
+}
+
 </style>
 <body>
  
-<h3>Create New Account</h3>
+<div id="stay" class="stay">
+  <img src="stay.png" alt="logo" height="265px" width="265px">
+</div>
  
-<div>
+<div id="acc" class="acc">
+<h3>Create New Account</h3>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <label for="user">User: </label>
     <input type="text" id="user" name="user" placeholder="Username">
@@ -109,9 +138,9 @@ h5 {
     <input type="submit" value="Login">
   </form>
   <h5>Create new account or <a href="index.php">login</a></h5>
+  <h4>Please Create New Account</h4>
 </div>
  
-<h4>Please Create New Account</h4>
 
 </body>
 </html>
