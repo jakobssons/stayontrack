@@ -60,7 +60,7 @@ $result2 = $conn->query($sql2);
 // Styling the table
 echo "<style>
     table {
-        width: 41.5%;
+        width: 35.75%;
         border-collapse: collapse;
         margin-top: 20px;
         background-color: #f5f5f5;
@@ -118,7 +118,7 @@ echo "<style>
     }
     
     body {
-        background-image: url('taustakuva1.jpg');
+        background-image: url('taustakuva4.jpg');
         background-size: cover;
         background-position: center; 
       }

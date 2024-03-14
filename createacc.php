@@ -1,9 +1,12 @@
 <?php
-include_once 'config/db_config.php';
+
+// include_once 'config/db_config.php';
 session_start();
 
+/*
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli($servername, $user, $upassword, $dbname);
+    $conn = new mysqli($servername, $user, $password, $dbname);
 
     // Check the connection
     if ($conn->connect_error) {
@@ -14,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $upassword = password_hash($_POST['upassword'], PASSWORD_DEFAULT); // Hash the password
 
     // Modify the SQL query to insert user information
-    $sql = "INSERT INTO users_table (user, password) VALUES (?, ?)";
+    $sql = "INSERT INTO users_table (user, password) VALUES ('$user','$upassword')";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $user, $upassword);
     $result = $stmt->execute();
@@ -31,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $conn->close();
 }
+*/
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +118,7 @@ h5 {
 }
 
 body {
-  background-image: url('taustakuva1.jpg');
+  background-image: url('taustakuva4.jpg');
   background-size: cover;
   background-position: center; 
 }
@@ -128,7 +132,10 @@ body {
  
 <div id="acc" class="acc">
 <h3>Create New Account</h3>
+<!--
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+-->
+<form action="createacc.php" method="POST">
     <label for="user">User: </label>
     <input type="text" id="user" name="user" placeholder="Username">
  
@@ -144,3 +151,33 @@ body {
 
 </body>
 </html>
+
+<?php
+
+include_once 'config/db_config.php';
+
+$conn2 = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn2) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+// Määritä $upassword ennen sen käyttöä
+$upassword = password_hash($upassword, PASSWORD_DEFAULT);
+
+$sql2 = "INSERT INTO users_table (user, upassword) VALUES ('$user','$upassword')";
+$result2 = mysqli_query($conn2, $sql2);
+if (!$result2) {
+  die("Query failed: " . mysqli_error($conn2));
+}
+
+$sql = 'SELECT * FROM users_table ORDER BY id DESC LIMIT 1';
+$result = $conn2->query($sql);
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC); // funktiokutsu
+if(isset($row['id'])) {
+  $current_id = $row['id'] + 1;
+} else {
+  $current_id = 1;
+}
+
+$conn2->close();
+?>

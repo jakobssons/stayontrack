@@ -20,6 +20,11 @@ H4 {
   color: #0047AB;
 }
 
+H3 {
+  text-align: center;
+  color: #0047AB;
+}
+
 input[type=submit] {
   width: 100%;
   background-color: #0047AB;
@@ -59,7 +64,7 @@ input[type=submit]:hover {
 }
 
 body {
-  background-image: url('taustakuva1.jpg');
+  background-image: url('taustakuva4.jpg');
   background-size: cover;
   background-position: center; 
 }
@@ -88,12 +93,11 @@ body {
 
     <input type="submit" value="Submit">
   </form>
+  <h3><a href="index.php">Kirjaudu ulos ja palaa aloitussivulle</a></h3>
 </div>
 
 
-<div>
 
-</div>
  
 </body>
 </html>

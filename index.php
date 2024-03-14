@@ -125,7 +125,7 @@ h5 {
 }
 
 body {
-  background-image: url('taustakuva1.jpg');
+  background-image: url('taustakuva4.jpg');
   background-size: cover;
   background-position: center; 
 }
